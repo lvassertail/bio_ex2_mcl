@@ -41,8 +41,8 @@ def expand(matrix):
     return normalize(matrix)
 
 
-def inflate(matrix):
-    matrix = matrix.power(2)
+def inflate(matrix, inflation_param):
+    matrix = matrix.power(inflation_param)
     return normalize(matrix)
 
 
@@ -92,7 +92,7 @@ def get_clusters(matrix):
     return final_clusters
 
 
-def create_clusters(graph):
+def create_clusters(graph, inflation_param=2):
     matrix = create_stochastic_matrix(graph)
     #matrix = create_test_matrix()
 
@@ -100,7 +100,7 @@ def create_clusters(graph):
         print("start step ", step)
 
         matrix = expand(matrix)
-        matrix = inflate(matrix)
+        matrix = inflate(matrix, inflation_param)
         matrix = prune(matrix)
 
         print("end step ", step)
