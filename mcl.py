@@ -77,23 +77,26 @@ def is_converged(matrix):
     return False
 
 
-def get_clusters(matrix):
-    all_clusters = defaultdict(set)
-    final_clusters = []
+def get_clusters(matrix, proteins):
+    all_clusters_by_id = defaultdict(set)
+    final_clusters_by_name = defaultdict(set)
 
     rows, cols = matrix.nonzero()
     for cluster_num, protein_id in zip(rows,cols):
-        all_clusters[cluster_num].add(protein_id)
+        all_clusters_by_id[cluster_num].add(protein_id)
 
-    for _, cluster in all_clusters.items():
+    cluster_id = 1
+    for _, cluster in all_clusters_by_id.items():
         if len(cluster) >= 5:
-            final_clusters.append(cluster)
+            names_cluster = set(proteins[protein_id] for protein_id in cluster)
+            final_clusters_by_name[cluster_id] = names_cluster
+            cluster_id += 1
 
-    return final_clusters
+    return final_clusters_by_name
 
 
-def create_clusters(graph, inflation_param=2):
-    matrix = create_stochastic_matrix(graph)
+def create_clusters(network, inflation_param=2):
+    matrix = create_stochastic_matrix(network.graph)
     #matrix = create_test_matrix()
 
     for step in range(0,20):
@@ -108,4 +111,4 @@ def create_clusters(graph, inflation_param=2):
         if is_converged(matrix):
             break
 
-    return get_clusters(matrix)
+    return get_clusters(matrix, network.proteins)
