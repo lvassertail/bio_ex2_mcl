@@ -16,7 +16,7 @@ def compute_clusters_ps(predicted_clusters, goa_clusters):
             n_goa_proteins = len(goa_proteins)
             n_predicted_proteins = len(predict_proteins)
             n_proteins_from_goa = len(goa_proteins.intersection(predict_proteins))
-            goa_c_p_value = ss.hypergeom(n_total_proteins, n_goa_proteins, n_predicted_proteins).sf(n_proteins_from_goa)
+            goa_c_p_value = ss.hypergeom(n_total_proteins, n_goa_proteins, n_predicted_proteins).sf(n_proteins_from_goa-1)
             if goa_c_p_value < p_value:
                 p_value = goa_c_p_value
                 top_goa_cluster = goa_cluster
