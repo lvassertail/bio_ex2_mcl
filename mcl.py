@@ -95,11 +95,11 @@ def get_clusters(matrix, proteins):
     return final_clusters_by_name
 
 
-def create_clusters(network, inflation_param=2):
+def create_clusters(network, inflation_param=2, steps=20):
     matrix = create_stochastic_matrix(network.graph)
     #matrix = create_test_matrix()
 
-    for step in range(0,20):
+    for step in range(0, steps):
         print("start step ", step)
 
         matrix = expand(matrix)
