@@ -85,8 +85,10 @@ def get_clusters(matrix, proteins):
     for cluster_num, protein_id in zip(rows,cols):
         all_clusters_by_id[cluster_num].add(protein_id)
 
+    unique_clusters = set(frozenset(cluster) for cluster in all_clusters_by_id.values())
+
     cluster_id = 1
-    for _, cluster in all_clusters_by_id.items():
+    for cluster in unique_clusters:
         if len(cluster) >= 5:
             names_cluster = set(proteins[protein_id] for protein_id in cluster)
             final_clusters_by_name[cluster_id] = names_cluster
