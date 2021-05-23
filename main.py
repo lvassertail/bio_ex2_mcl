@@ -32,7 +32,7 @@ def main():
     save_clustered_proteins(clusters, "output/clustered_proteins.txt")
     save_clusters_p_values(clusters_ps, "output/clusters_P.txt")
 
-    for inflation in np.linspace(1.5, 5, 6):
+    for inflation in [1.5,1.75,2.0,2.25,2.5,2.75,3,4,5]:
         clusters = create_clusters(network_graph, inflation_param=inflation)
         clusters_ps = compute_clusters_ps(clusters, goa)
 
