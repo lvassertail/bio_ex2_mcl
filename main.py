@@ -36,8 +36,10 @@ def main():
         clusters = create_clusters(network_graph, inflation_param=inflation)
         clusters_ps = compute_clusters_ps(clusters, goa)
 
-        save_clustered_proteins(clusters_ps, f"output/per_inflation/clustered_proteins_{inflation:.2f}.txt")
+        save_clustered_proteins(clusters, f"output/per_inflation/clustered_proteins_{inflation:.2f}.txt")
         save_clusters_p_values(clusters_ps, f"output/per_inflation/clusters_P_{inflation:.2f}.txt")
+
+        print("Average cluster size", np.mean([len(c) for c in clusters.values()]))
 
 
 if __name__ == "__main__":
